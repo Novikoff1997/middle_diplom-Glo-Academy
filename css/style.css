@@ -67,10 +67,8 @@ h3 {
 .form-control:focus {
   border-color: #00902a;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(0, 144, 42, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(0, 144, 42, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 144, 42, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 144, 42, 0.6);
 }
 .form-control::-moz-placeholder {
   color: #8e8e8e;
@@ -96,10 +94,8 @@ input[name="phone"] {
 }
 input.error {
   border-color: #f00;
-  -webkit-box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075),
-    0 0 8px rgba(220, 0, 0, 0.6);
-  box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075),
-    0 0 8px rgba(220, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075), 0 0 8px rgba(220, 0, 0, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255, 0, 0, 0.075), 0 0 8px rgba(220, 0, 0, 0.6);
 }
 .btn {
   font-family: "NeoSansCyr-Medium", sans-serif;
@@ -127,13 +123,7 @@ input.error {
   background-color: #ff8a17;
   *background-color: #ff8a17;
   background-image: -moz-linear-gradient(top, #ffb336, #ff8a17);
-  background-image: -webkit-gradient(
-    linear,
-    0 0,
-    0 100%,
-    from(#ffb336),
-    to(#ff8a17)
-  );
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffb336), to(#ff8a17));
   background-image: -webkit-linear-gradient(top, #ffb336, #ff8a17);
   background-image: -o-linear-gradient(top, #ffb336, #ff8a17);
   background-image: linear-gradient(to bottom, #ffb336, #ff8a17);
@@ -156,13 +146,7 @@ input.error {
   background-color: #009215;
   *background-color: #009215;
   background-image: -moz-linear-gradient(top, #00b51a, #009215);
-  background-image: -webkit-gradient(
-    linear,
-    0 0,
-    0 100%,
-    from(#00b51a),
-    to(#009215)
-  );
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#00b51a), to(#009215));
   background-image: -webkit-linear-gradient(top, #00b51a, #009215);
   background-image: -o-linear-gradient(top, #00b51a, #009215);
   background-image: linear-gradient(to bottom, #00b51a, #009215);
@@ -782,8 +766,7 @@ p.services-image_mobile {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
 }
 .document-overlay {
-  background: url("../images/zoom.png") no-repeat center
-    rgba(79, 104, 110, 0.42);
+  background: url("../images/zoom.png") no-repeat center rgba(79, 104, 110, 0.42);
   position: absolute;
   width: 100%;
   height: 100%;
