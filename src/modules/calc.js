@@ -23,6 +23,10 @@ const calc = () => {
     return value1.value * value2.value * value3.value;
   };
 
+  if (!calc) {
+    return;
+  }
+
   calc.addEventListener("input", (e) => {
     if (e.target === calcInput) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
