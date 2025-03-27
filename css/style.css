@@ -774,6 +774,11 @@ p.services-image_mobile {
   left: 0;
   opacity: 0;
 }
+.document-overlay:hover {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  -webkit-transition: opacity 0.3s linear;
+}
 .document-inner:hover .document-overlay {
   opacity: 1;
   transition: opacity 0.3s linear;

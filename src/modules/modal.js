@@ -15,11 +15,11 @@ const modal = () => {
       if (e.target === overlay || e.target === closeButton) {
         closeElements(modalWindow);
       }
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          closeElements(modalWindow);
-        }
-      });
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeElements(modalWindow);
+      }
     });
   };
 
