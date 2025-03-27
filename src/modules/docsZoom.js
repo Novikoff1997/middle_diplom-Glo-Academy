@@ -4,12 +4,16 @@ const docsZoom = () => {
   const imageBlock = document.createElement("div");
 
   const openImage = (imageTarget) => {
-    const imgHref = imageTarget.parentElement.href.replace(/^.*:\/\/[^\/]*\//, "/");
-    overlay.style.cssText = "display: flex; justify-content: center; align-items: center;";
+    let imgHref = imageTarget.parentElement;
+    imgHref = imgHref.parentElement.href.replace(/^.*:\/\/[^\/]*\//, "/");
+    console.log(imgHref);
+    overlay.style.cssText =
+      "display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.5s";
     imageBlock.innerHTML = `<img src="${imgHref}"></img>`;
     imageBlock.style.cssText = "transform: scale(0.3); transition: transform 0.5s; position:";
     requestAnimationFrame(() => {
       imageBlock.style.transform = "scale(0.7)";
+      overlay.style.opacity = "1";
     });
     overlay.append(imageBlock);
   };
