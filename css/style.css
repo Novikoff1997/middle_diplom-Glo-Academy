@@ -1082,6 +1082,26 @@ p.services-image_mobile {
 .box-modal h4 {
   margin-top: 30px;
 }
+
+.slider {
+  position: relative;
+}
+.slider-show-block {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.slide {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.active {
+  visibility: visible;
+  opacity: 1;
+}
 @media (max-width: 1850px) {
   #offer .container {
     height: 650px;
@@ -1580,7 +1600,7 @@ input.error {
 
 .benefits-wrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 auto;
 }
 

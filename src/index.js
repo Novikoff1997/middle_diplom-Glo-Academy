@@ -5,11 +5,13 @@ import sendForm from "./modules/sendForm";
 import calc from "./modules/calc";
 import timer from "./modules/timer";
 import docsZoom from "./modules/docsZoom";
+import slider from "./modules/slider";
 
 modal();
 scroll();
 formValidate();
 sendForm();
 calc();
-timer("30 march 2025");
+timer("31 march 2025");
 docsZoom();
+slider();

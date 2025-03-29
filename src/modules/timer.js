@@ -36,10 +36,10 @@ const timer = (date) => {
     if (timeRemaning > 0) {
       setInterval(updateClock, 1000);
     } else {
-      daysBlock.textContent = "00";
-      hoursBlock.textContent = "00";
-      minutesBlock.textContent = "00";
-      secondsBlock.textContent = "00";
+      setTimeAllBlocks(".count_1>span", "00");
+      setTimeAllBlocks(".count_2>span", "00");
+      setTimeAllBlocks(".count_3>span", "00");
+      setTimeAllBlocks(".count_4>span", "00");
     }
   };
   updateClock();
