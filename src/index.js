@@ -5,7 +5,8 @@ import sendForm from "./modules/sendForm";
 import calc from "./modules/calc";
 import timer from "./modules/timer";
 import docsZoom from "./modules/docsZoom";
-import slider from "./modules/slider";
+import sliderBenefit from "./modules/sliderBenefit";
+import sliderService from "./modules/sliderService";
 
 modal();
 scroll();
@@ -14,4 +15,5 @@ sendForm();
 calc();
 timer("31 march 2025");
 docsZoom();
-slider();
+sliderBenefit();
+sliderService();

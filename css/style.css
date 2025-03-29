@@ -1096,7 +1096,7 @@ p.services-image_mobile {
 .slide {
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.6s;
 }
 .active {
   visibility: visible;

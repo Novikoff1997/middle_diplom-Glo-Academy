@@ -38,7 +38,7 @@ const slider = () => {
       const slideIndex = (currentSlide + i) % slides.length;
       const cloneSlide = slides[slideIndex].cloneNode(true);
       showSlidesBlock.append(cloneSlide);
-      setInterval(() => {
+      setTimeout(() => {
         cloneSlide.classList.add("active");
       }, 100);
     }
