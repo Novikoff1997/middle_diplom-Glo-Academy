@@ -21,7 +21,9 @@ const slider = () => {
     slides.forEach((slide) => {
       slide.classList.add("slide");
     });
-    // Включаем первые несколько слайдов
+  };
+
+  const showFirstSlides = () => {
     for (let i = 0; i < slidesToShow; i++) {
       slides[i % slides.length].classList.add("active");
       showSlidesBlock.append(slides[i % slides.length]);
@@ -79,20 +81,39 @@ const slider = () => {
     startSlider();
   });
 
-  window.addEventListener("resize", () => {
+  const handleResize = () => {
+    let isCompleted = true;
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 576 && isCompleted) {
+        showSlidesBlock.innerHTML = "";
+        slidesToShow = 1;
+        stopSlider();
+        showFirstSlides();
+        startSlider();
+        isCompleted = false;
+      }
+      if (window.innerWidth > 576 && !isCompleted) {
+        showSlidesBlock.innerHTML = "";
+        slidesToShow = 3;
+        stopSlider();
+        showFirstSlides();
+        startSlider();
+        isCompleted = true;
+      }
+    });
+    if (window.innerWidth <= 1210) {
+      showSlidesBlock.style.flexDirection = "column";
+      showSlidesBlock.style.gap = "0";
+    }
     if (window.innerWidth <= 576) {
       slidesToShow = 1;
-    } else {
-      slidesToShow = 3;
     }
-  });
+  };
 
-  if (window.innerWidth <= 576) {
-    slidesToShow = 1;
-  }
-
+  handleResize();
   sliderSettings();
-  // startSlider();
+  startSlider();
+  showFirstSlides;
 };
 
 export default slider;

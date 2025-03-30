@@ -80,7 +80,6 @@ const sliderService = () => {
         showSlideBlock.style.gap = "30px";
       }
       if (window.innerWidth > 576 && !isCompleted) {
-        console.log("Этот момент");
         showSlideBlock.innerHTML = "";
         slidesToShow = 2;
         stopSlider();
