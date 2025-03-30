@@ -1,9 +1,21 @@
 import { debounce } from "./helpers";
 
 const sendForm = () => {
-  const statusBlock = document.createElement("div");
-  document.body.append(statusBlock);
-  statusBlock.classList.add("status-block");
+  const successBlock = document.createElement("div");
+  const errorBlock = document.createElement("div");
+  const invalidBlock = document.createElement("div");
+
+  const successText = "Спасибо за заявку! Наш менеджер свяжется с вами.";
+  const invalidText = "Проверьте правильность введенных данных!";
+
+  const settingsStatusBlocks = () => {
+    document.body.append(successBlock);
+    document.body.append(errorBlock);
+    document.body.append(invalidBlock);
+    successBlock.classList.add("status-block");
+    errorBlock.classList.add("status-block");
+    invalidBlock.classList.add("status-block");
+  };
 
   const send = debounce((formTarget) => {
     const form = formTarget;
@@ -12,17 +24,18 @@ const sendForm = () => {
     const formBody = {};
 
     let formSuccess;
+    let calcData;
 
-    statusBlock.innerHTML =
-      '<img width="40px" src="./images/preloader/preloader.png">Отправка...</img>';
-    statusBlock.classList.add("open");
+    if (localStorage["calc"]) {
+      calcData = JSON.parse(localStorage.getItem("calc"));
+    }
 
-    const closeStatuBlock = () => {
+    const closeStatuBlock = (statusBlock) => {
       setTimeout(() => {
         statusBlock.style = "";
         statusBlock.classList.remove("open");
         statusBlock.innerHTML = "";
-      }, 3000);
+      }, 4000);
     };
 
     const clearInputs = () => {
@@ -41,27 +54,52 @@ const sendForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-      }).then((response) => response.json());
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .catch((error) => {
+          errorBlock.textContent = error;
+          throw error;
+        });
     };
 
     formData.forEach((val, key) => {
       formBody[key] = val;
     });
+    for (let key in calcData) {
+      formBody[key] = calcData[key];
+    }
 
     formSuccess = Array.from(formInputs)
       .filter((input) => input.type !== "hidden")
       .every((input) => input.classList.contains("success"));
 
     if (formSuccess) {
-      sendForm("https://jsonplaceholder.typicode.com/posts").then((data) => {
-        statusBlock.style.backgroundColor = "green";
-        statusBlock.textContent = "Спасибо за заявку! Наш менеджер свяжется с вами.";
-        closeStatuBlock();
-      });
+      successBlock.innerHTML =
+        '<img width="40px" src="./images/preloader/preloader.png">Отправка...</img>';
+      successBlock.classList.add("open");
+      closeStatuBlock(successBlock);
+      sendForm("https://jsonplaceholder.typicode.com/posts")
+        .then((data) => {
+          successBlock.style.backgroundColor = "green";
+          successBlock.textContent = successText;
+          closeStatuBlock(successBlock);
+        })
+        .catch((error) => {
+          errorBlock.classList.add("open");
+          errorBlock.style.backgroundColor = "#FF4500";
+          errorBlock.innerHTML = `${error.message} <br> Попробуйте позже`;
+          closeStatuBlock(errorBlock);
+        });
     } else {
-      statusBlock.style.backgroundColor = "red";
-      statusBlock.textContent = "Проверьте правильность введенных данных!";
-      closeStatuBlock();
+      invalidBlock.classList.add("open");
+      invalidBlock.style.backgroundColor = "red";
+      invalidBlock.textContent = invalidText;
+      closeStatuBlock(invalidBlock);
     }
     clearInputs();
   }, 300);
@@ -70,6 +108,7 @@ const sendForm = () => {
     e.preventDefault();
     send(e.target);
   });
+  settingsStatusBlocks();
 };
 
 export default sendForm;

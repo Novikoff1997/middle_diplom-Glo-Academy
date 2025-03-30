@@ -1113,9 +1113,9 @@ p.services-image_mobile {
   width: 300px;
   height: 100px;
   right: 10px;
-  top: 0;
+  top: -20px;
   box-shadow: 5px 5px 20px rgb(42, 42, 42);
-  transition: all 0.2s ease-out;
+  transition: all 0.4s ease-out;
   color: white;
   font-weight: bold;
   gap: 20px;
@@ -1124,7 +1124,7 @@ p.services-image_mobile {
 .open {
   visibility: visible;
   opacity: 1;
-  top: 10px;
+  top: 20px;
 }
 @media (max-width: 1850px) {
   #offer .container {

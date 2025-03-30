@@ -5,6 +5,8 @@ const calc = () => {
   const calcInput = document.getElementById("calc-input");
   const calcTotal = document.getElementById("calc-total");
 
+  const calcValues = {};
+
   let res;
 
   const selected = (selector) => {
@@ -44,7 +46,13 @@ const calc = () => {
     if (isSuccess(calcType) && isSuccess(calcTypeMaterial)) {
       res = clculate(calcInput, calcType, calcTypeMaterial);
       calcTotal.value = Math.floor(res);
+
+      calcValues["Тип"] = calcType[calcType.selectedIndex].textContent;
+      calcValues["Материал"] = calcTypeMaterial[calcTypeMaterial.selectedIndex].textContent;
+      calcValues["Площадь"] = calcInput.value;
+      calcValues["Цена"] = calcTotal.value;
     }
+    localStorage.setItem("calc", JSON.stringify(calcValues));
   });
 };
 
