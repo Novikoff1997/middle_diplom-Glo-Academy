@@ -1,60 +1,74 @@
-const sendForm = (calcValues = {}) => {
-  const formIsSuccess = (form) => {
-    let success = true;
-    const inputs = form.querySelectorAll("input");
-    inputs.forEach((input) => {
-      if (input.type === "hidden") {
-        input.classList.add("success");
-      }
-      if (!input.classList.contains("success")) {
-        success = false;
-      }
-    });
-    return success;
-  };
+import { debounce } from "./helpers";
 
-  const getFormBody = (form) => {
+const sendForm = () => {
+  const statusBlock = document.createElement("div");
+  document.body.append(statusBlock);
+  statusBlock.classList.add("status-block");
+
+  const send = debounce((formTarget) => {
+    const form = formTarget;
+    const formInputs = form.querySelectorAll("input");
     const formData = new FormData(form);
     const formBody = {};
+
+    let formSuccess;
+
+    statusBlock.innerHTML =
+      '<img width="40px" src="./images/preloader/preloader.png">Отправка...</img>';
+    statusBlock.classList.add("open");
+
+    const closeStatuBlock = () => {
+      setTimeout(() => {
+        statusBlock.style = "";
+        statusBlock.classList.remove("open");
+        statusBlock.innerHTML = "";
+      }, 3000);
+    };
+
+    const clearInputs = () => {
+      formInputs.forEach((input) => {
+        if (input.type !== "hidden") {
+          input.value = "";
+          input.classList.remove("success", "invalid");
+        }
+      });
+    };
+
+    const sendForm = (url) => {
+      return fetch(url, {
+        method: "POST",
+        body: JSON.stringify(formBody),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => response.json());
+    };
+
     formData.forEach((val, key) => {
       formBody[key] = val;
     });
-    return formBody;
-  };
 
-  const sendData = (data) => {
-    return fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => response.json());
-  };
+    formSuccess = Array.from(formInputs)
+      .filter((input) => input.type !== "hidden")
+      .every((input) => input.classList.contains("success"));
+
+    if (formSuccess) {
+      sendForm("https://jsonplaceholder.typicode.com/posts").then((data) => {
+        statusBlock.style.backgroundColor = "green";
+        statusBlock.textContent = "Спасибо за заявку! Наш менеджер свяжется с вами.";
+        closeStatuBlock();
+      });
+    } else {
+      statusBlock.style.backgroundColor = "red";
+      statusBlock.textContent = "Проверьте правильность введенных данных!";
+      closeStatuBlock();
+    }
+    clearInputs();
+  }, 300);
 
   document.addEventListener("submit", (e) => {
     e.preventDefault();
-
-    const statusBlock = document.createElement("div");
-    statusBlock.style.textAlign = "center";
-    e.target.append(statusBlock);
-    statusBlock.innerHTML = '<img width="25px" src="./images/preloader/preloader.gif"></img>';
-
-    if (formIsSuccess(e.target)) {
-      const formBody = getFormBody(e.target);
-      sendData(formBody).then((data) => {
-        statusBlock.textContent = "Форма успешно отправлена!";
-        e.target.querySelectorAll("input").forEach((input) => {
-          input.value = "";
-        });
-      });
-    } else {
-      alert("Данные введены некорректно");
-    }
-    setTimeout(() => {
-      statusBlock.style.transition = "opacity 0.2s";
-      statusBlock.style.opacity = "0";
-    }, 3000);
+    send(e.target);
   });
 };
 

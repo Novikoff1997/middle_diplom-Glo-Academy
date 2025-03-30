@@ -2,12 +2,14 @@ const formValidate = () => {
   const success = (input) => {
     input.classList.add("success");
     input.classList.remove("invalid");
-    input.style.borderColor = "green";
+    input.style.borderColor = "#00c000";
+    input.style.boxShadow = "0px 0px 3px #00c000";
   };
   const invalid = (input) => {
     input.classList.add("invalid");
     input.classList.remove("success");
-    input.style.borderColor = "red";
+    input.style.borderColor = "#a80000";
+    input.style.boxShadow = "0px 0px 3px #a80000";
   };
 
   const forms = document.querySelectorAll("form");
