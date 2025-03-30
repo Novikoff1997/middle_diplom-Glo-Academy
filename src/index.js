@@ -13,7 +13,7 @@ scroll();
 formValidate();
 sendForm();
 calc();
-timer("31 march 2025");
+timer("10 april 2025");
 docsZoom();
 sliderBenefit();
 sliderService();

@@ -7,6 +7,9 @@ const sendForm = () => {
 
   const successText = "Спасибо за заявку! Наш менеджер свяжется с вами.";
   const invalidText = "Проверьте правильность введенных данных!";
+  const successBlockColor = "#228B22";
+  const errorBlockColor = "#FF4500";
+  const invalidBlockColor = "#CD5C5C";
 
   const settingsStatusBlocks = () => {
     document.body.append(successBlock);
@@ -85,19 +88,19 @@ const sendForm = () => {
       closeStatuBlock(successBlock);
       sendForm("https://jsonplaceholder.typicode.com/posts")
         .then((data) => {
-          successBlock.style.backgroundColor = "green";
+          successBlock.style.backgroundColor = successBlockColor;
           successBlock.textContent = successText;
           closeStatuBlock(successBlock);
         })
         .catch((error) => {
           errorBlock.classList.add("open");
-          errorBlock.style.backgroundColor = "#FF4500";
+          errorBlock.style.backgroundColor = errorBlockColor;
           errorBlock.innerHTML = `${error.message} <br> Попробуйте позже`;
           closeStatuBlock(errorBlock);
         });
     } else {
       invalidBlock.classList.add("open");
-      invalidBlock.style.backgroundColor = "red";
+      invalidBlock.style.backgroundColor = invalidBlockColor;
       invalidBlock.textContent = invalidText;
       closeStatuBlock(invalidBlock);
     }

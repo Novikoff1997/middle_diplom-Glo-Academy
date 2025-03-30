@@ -1114,12 +1114,13 @@ p.services-image_mobile {
   height: 100px;
   right: 10px;
   top: -20px;
-  box-shadow: 5px 5px 20px rgb(42, 42, 42);
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.445);
   transition: all 0.4s ease-out;
   color: white;
   font-weight: bold;
   gap: 20px;
-  border-radius: 10px;
+  border-radius: 10px 0px 10px 0px;
+  background-color: #ffffff4c;
 }
 .open {
   visibility: visible;
