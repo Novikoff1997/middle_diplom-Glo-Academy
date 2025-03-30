@@ -4,7 +4,7 @@ const sliderService = () => {
   const slides = sliderBlock.querySelectorAll(".service-item");
   const showSlideBlock = document.createElement("div");
   const servicesRrrows = services.querySelector(".services-arrows");
-  const timeInterval = 7000;
+  const timeInterval = 3000;
 
   let interval;
   let currentSlide = 0;
@@ -32,6 +32,7 @@ const sliderService = () => {
       slide.style.display = "none";
     });
   };
+
   const showCurrentSlides = () => {
     showSlideBlock.innerHTML = "";
     for (let i = 0; i < slidesToShow; i++) {
@@ -105,6 +106,13 @@ const sliderService = () => {
       currentSlide = (currentSlide + slidesToShow) % slides.length;
     }
     showCurrentSlides();
+  });
+
+  servicesRrrows.addEventListener("mouseenter", () => {
+    stopSlider();
+  });
+  servicesRrrows.addEventListener("mouseleave", () => {
+    startSlider();
   });
 
   handleResize();
