@@ -112,8 +112,8 @@ const slider = () => {
 
   handleResize();
   sliderSettings();
+  showFirstSlides();
   startSlider();
-  showFirstSlides;
 };
 
 export default slider;
