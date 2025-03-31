@@ -10,6 +10,7 @@ const sendForm = () => {
   const successBlockColor = "#228B22";
   const errorBlockColor = "#FF4500";
   const invalidBlockColor = "#CD5C5C";
+  const loaderColor = "#b2b2b2";
 
   const settingsStatusBlocks = () => {
     document.body.append(successBlock);
@@ -95,6 +96,7 @@ const sendForm = () => {
     if (formSuccess) {
       successBlock.innerHTML =
         '<img width="40px" src="./images/preloader/preloader.png">Отправка...</img>';
+      successBlock.style.backgroundColor = loaderColor;
       successBlock.classList.add("open");
       closeStatuBlock(successBlock);
       sendForm("https://jsonplaceholder.typicode.com/posts")
