@@ -4,7 +4,7 @@ const sliderService = () => {
   const slides = sliderBlock.querySelectorAll(".service-item");
   const showSlideBlock = document.createElement("div");
   const servicesRrrows = services.querySelector(".services-arrows");
-  const timeInterval = 3000;
+  const timeInterval = 5000;
 
   let interval;
   let currentSlide = 0;

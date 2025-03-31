@@ -3,7 +3,7 @@ const slider = () => {
   const sliderBlock = document.querySelector(".benefits-wrap");
   const slides = sliderBlock.querySelectorAll(".benefits__item");
   const arrowBlock = slider.querySelector(".benefits-arrows");
-  const timeInterval = 7000;
+  const timeInterval = 5000;
   const showSlidesBlock = document.createElement("div");
 
   let slidesToShow = 3;
