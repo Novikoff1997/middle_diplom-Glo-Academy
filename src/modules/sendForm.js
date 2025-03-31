@@ -51,22 +51,33 @@ const sendForm = () => {
     };
 
     const sendForm = (url) => {
+      const controller = new AbortController();
+      const signal = controller.signal;
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
       return fetch(url, {
         method: "POST",
         body: JSON.stringify(formBody),
         headers: {
           "Content-Type": "application/json",
         },
+        signal: signal,
       })
         .then((response) => {
+          clearTimeout(timeouId);
+          console.log(response.type);
+
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           return response.json();
         })
         .catch((error) => {
-          errorBlock.textContent = error;
-          throw error;
+          clearTimeout(timeoutId);
+          successBlock.classList.remove("open");
+          errorBlock.classList.add("open");
+          errorBlock.style.backgroundColor = errorBlockColor;
+          errorBlock.textContent = `Ошибка, сервер не отвечает :'(`;
+          closeStatuBlock(errorBlock);
         });
     };
 
