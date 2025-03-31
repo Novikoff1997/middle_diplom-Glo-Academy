@@ -76,7 +76,7 @@ const sendForm = () => {
           successBlock.classList.remove("open");
           errorBlock.classList.add("open");
           errorBlock.style.backgroundColor = errorBlockColor;
-          errorBlock.textContent = `Ошибка, сервер не отвечает :'(`;
+          errorBlock.innerHTML = `Ошибка: сервер не отвечает! <br> ${error}`;
           closeStatuBlock(errorBlock);
         });
     };
