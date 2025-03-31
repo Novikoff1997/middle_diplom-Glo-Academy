@@ -80,9 +80,9 @@ const sliderService = () => {
         showSlideBlock.style.gap = "30px";
       }
       if (window.innerWidth > 576 && !isCompleted) {
-        showSlideBlock.innerHTML = "";
         slidesToShow = 2;
         stopSlider();
+        showSlideBlock.innerHTML = "";
         showFirstSlides();
         startSlider();
         isCompleted = true;
