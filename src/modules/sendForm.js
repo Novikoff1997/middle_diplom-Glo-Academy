@@ -1,6 +1,8 @@
 import { debounce } from "./helpers";
 
 const sendForm = () => {
+  const pageName = document.querySelector(".slogan").textContent.toLocaleLowerCase();
+
   const successBlock = document.createElement("div");
   const errorBlock = document.createElement("div");
   const invalidBlock = document.createElement("div");
@@ -83,6 +85,7 @@ const sendForm = () => {
     for (let key in calcData) {
       formBody[key] = calcData[key];
     }
+    formBody["page"] = pageName;
 
     formSuccess = Array.from(formInputs)
       .filter((input) => input.type !== "hidden")

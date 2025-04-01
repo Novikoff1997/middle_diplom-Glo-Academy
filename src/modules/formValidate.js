@@ -1,4 +1,6 @@
 const formValidate = () => {
+  const forms = document.querySelectorAll("form");
+
   const success = (input) => {
     input.classList.add("success");
     input.classList.remove("invalid");
@@ -11,8 +13,6 @@ const formValidate = () => {
     input.style.borderColor = "#a80000";
     input.style.boxShadow = "0px 0px 3px #a80000";
   };
-
-  const forms = document.querySelectorAll("form");
 
   forms.forEach((form) => {
     form.addEventListener("input", (e) => {
