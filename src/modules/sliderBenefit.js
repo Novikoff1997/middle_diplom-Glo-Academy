@@ -101,10 +101,6 @@ const slider = () => {
         isCompleted = true;
       }
     });
-    if (window.innerWidth <= 1210) {
-      showSlidesBlock.style.flexDirection = "column";
-      showSlidesBlock.style.gap = "0";
-    }
     if (window.innerWidth <= 576) {
       slidesToShow = 1;
     }

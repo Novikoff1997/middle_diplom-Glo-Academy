@@ -22,6 +22,7 @@ const sliderService = () => {
     for (let i = 0; i < slidesToShow; i++) {
       const cloneElement = slides[i].cloneNode(true);
       cloneElement.style.display = "block";
+      cloneElement.classList.add("active");
       showSlideBlock.append(cloneElement);
     }
   };
@@ -80,9 +81,9 @@ const sliderService = () => {
         showSlideBlock.style.gap = "30px";
       }
       if (window.innerWidth > 576 && !isCompleted) {
+        showSlideBlock.innerHTML = "";
         slidesToShow = 2;
         stopSlider();
-        showSlideBlock.innerHTML = "";
         showFirstSlides();
         startSlider();
         isCompleted = true;
