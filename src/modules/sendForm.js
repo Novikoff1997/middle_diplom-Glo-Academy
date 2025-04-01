@@ -12,6 +12,16 @@ const sendForm = () => {
   const invalidBlockColor = "#CD5C5C";
   const loaderColor = "#b2b2b2";
 
+  let controller = new AbortController();
+  let signal = controller.signal;
+  let timeoutId = setTimeout(() => controller.abort(), 4000);
+
+  const requestTimeout = () => {
+    controller = new AbortController();
+    signal = controller.signal;
+    timeoutId = setTimeout(() => controller.abort(), 4000);
+  };
+
   const settingsStatusBlocks = () => {
     document.body.append(successBlock);
     document.body.append(errorBlock);
@@ -52,9 +62,6 @@ const sendForm = () => {
     };
 
     const sendForm = (url) => {
-      const controller = new AbortController();
-      const signal = controller.signal;
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
       return fetch(url, {
         method: "POST",
         body: JSON.stringify(formBody),
@@ -62,24 +69,12 @@ const sendForm = () => {
           "Content-Type": "application/json",
         },
         signal: signal,
-      })
-        .then((response) => {
-          clearTimeout(timeouId);
-          console.log(response.type);
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .catch((error) => {
-          clearTimeout(timeoutId);
-          successBlock.classList.remove("open");
-          errorBlock.classList.add("open");
-          errorBlock.style.backgroundColor = errorBlockColor;
-          errorBlock.innerHTML = `Ошибка: сервер не отвечает! <br> ${error}`;
-          closeStatuBlock(errorBlock);
-        });
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      });
     };
 
     formData.forEach((val, key) => {
@@ -94,18 +89,21 @@ const sendForm = () => {
       .every((input) => input.classList.contains("success"));
 
     if (formSuccess) {
+      requestTimeout();
       successBlock.innerHTML =
         '<img width="40px" src="./images/preloader/preloader.png">Отправка...</img>';
       successBlock.style.backgroundColor = loaderColor;
       successBlock.classList.add("open");
       closeStatuBlock(successBlock);
-      sendForm("https://jsonplaceholder.typicode.com/posts")
+      sendForm("https://dummyjson.com/test")
         .then((data) => {
+          clearTimeout(timeoutId);
           successBlock.style.backgroundColor = successBlockColor;
           successBlock.textContent = successText;
           closeStatuBlock(successBlock);
         })
         .catch((error) => {
+          clearTimeout(timeoutId);
           errorBlock.classList.add("open");
           errorBlock.style.backgroundColor = errorBlockColor;
           errorBlock.innerHTML = `${error.message} <br> Попробуйте позже`;
