@@ -62,6 +62,13 @@ const sendForm = () => {
         }
       });
     };
+    const clearInvalidInput = () => {
+      formInputs.forEach((input) => {
+        if (input.type !== "hidden" && !input.classList.contains("success")) {
+          input.value = "";
+        }
+      });
+    };
 
     const sendForm = (url) => {
       return fetch(url, {
@@ -104,6 +111,7 @@ const sendForm = () => {
           successBlock.style.backgroundColor = successBlockColor;
           successBlock.textContent = successText;
           closeStatuBlock(successBlock);
+          clearInputs();
         })
         .catch((error) => {
           clearTimeout(timeoutId);
@@ -117,8 +125,8 @@ const sendForm = () => {
       invalidBlock.style.backgroundColor = invalidBlockColor;
       invalidBlock.textContent = invalidText;
       closeStatuBlock(invalidBlock);
+      clearInvalidInput();
     }
-    clearInputs();
   }, 300);
 
   document.addEventListener("submit", (e) => {
