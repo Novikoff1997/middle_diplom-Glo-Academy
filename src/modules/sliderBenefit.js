@@ -26,6 +26,7 @@ const slider = () => {
   const showFirstSlides = () => {
     for (let i = 0; i < slidesToShow; i++) {
       slides[i % slides.length].classList.add("active");
+      slides[i % slides.length].classList.add("slide");
       showSlidesBlock.append(slides[i % slides.length]);
     }
   };
@@ -35,15 +36,20 @@ const slider = () => {
   };
 
   const showCurrentSlides = () => {
-    showSlidesBlock.innerHTML = "";
-    for (let i = 0; i < slidesToShow; i++) {
-      const slideIndex = (currentSlide + i) % slides.length;
-      const cloneSlide = slides[slideIndex].cloneNode(true);
-      showSlidesBlock.append(cloneSlide);
-      setTimeout(() => {
-        cloneSlide.classList.add("active");
-      }, 100);
-    }
+    showSlidesBlock.querySelectorAll(".active").forEach((slide) => {
+      slide.classList.remove("active");
+    });
+    setTimeout(() => {
+      showSlidesBlock.innerHTML = "";
+      for (let i = 0; i < slidesToShow; i++) {
+        const slideIndex = (currentSlide + i) % slides.length;
+        const cloneSlide = slides[slideIndex].cloneNode(true);
+        showSlidesBlock.append(cloneSlide);
+        setTimeout(() => {
+          cloneSlide.classList.add("active");
+        }, 400);
+      }
+    }, 400);
   };
 
   const autoSlide = () => {

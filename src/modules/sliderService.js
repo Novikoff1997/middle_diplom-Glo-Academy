@@ -22,6 +22,7 @@ const sliderService = () => {
     for (let i = 0; i < slidesToShow; i++) {
       const cloneElement = slides[i].cloneNode(true);
       cloneElement.style.display = "block";
+      cloneElement.classList.add("slide");
       cloneElement.classList.add("active");
       showSlideBlock.append(cloneElement);
     }
@@ -35,22 +36,27 @@ const sliderService = () => {
   };
 
   const showCurrentSlides = () => {
-    showSlideBlock.innerHTML = "";
-    for (let i = 0; i < slidesToShow; i++) {
-      const slideIndex = (currentSlide + i) % slides.length;
-      const cloneElement = slides[slideIndex].cloneNode("true");
-      showSlideBlock.append(cloneElement);
-      cloneElement.style.display = "block";
-      setTimeout(() => {
-        cloneElement.classList.add("active");
-      }, 100);
-    }
+    showSlideBlock.querySelectorAll(".active").forEach((slide) => {
+      slide.classList.remove("active");
+    });
+    setTimeout(() => {
+      showSlideBlock.innerHTML = "";
+      for (let i = 0; i < slidesToShow; i++) {
+        const slideIndex = (currentSlide + i) % slides.length;
+        const cloneElement = slides[slideIndex].cloneNode("true");
+        showSlideBlock.append(cloneElement);
+        cloneElement.style.display = "block";
+        setTimeout(() => {
+          cloneElement.classList.add("active");
+        }, 400);
+      }
+    }, 400);
   };
 
   const autoSlide = () => {
     hideAllSlides();
     currentSlide = (currentSlide + slidesToShow) % slides.length;
-    showCurrentSlides();
+    setTimeout(showCurrentSlides, 1000);
   };
 
   const startSlider = () => {
